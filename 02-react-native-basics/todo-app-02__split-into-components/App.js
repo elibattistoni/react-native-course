@@ -1,28 +1,35 @@
-import { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
 
-import GoalItem from './components/GoalItem';
-import GoalInput from './components/GoalInput';
+//! let's split into multiple components!!
+import GoalInput from "./components/GoalInput";
+import GoalItem from "./components/GoalItem";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
 
-  function addGoalHandler(enteredGoalText) {
-    setCourseGoals((currentCourseGoals) => [
-      ...currentCourseGoals,
-      { text: enteredGoalText, id: Math.random().toString() },
-    ]);
+  function addGoalItemHandler(goalText) {
+    setCourseGoals((currList) => {
+      const updatedList = [
+        ...currList,
+        { text: goalText, id: Math.random().toString() },
+      ];
+      console.log("ADD --> updatedList", updatedList);
+      return updatedList;
+    });
   }
 
   function deleteGoalHandler(id) {
-    setCourseGoals((currentCourseGoals) => {
-      return currentCourseGoals.filter((goal) => goal.id !== id);
+    setCourseGoals((currList) => {
+      const remainingList = currList.filter((goal) => goal.id !== id);
+      console.log("REMOVE --> remainingList", remainingList);
+      return remainingList;
     });
   }
 
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal={addGoalHandler} />
+      <GoalInput onAddGoal={addGoalItemHandler} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
