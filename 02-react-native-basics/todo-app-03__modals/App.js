@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { StyleSheet, View, FlatList, Button } from "react-native";
-import { endAsyncEvent } from "react-native/Libraries/Performance/Systrace";
 import GoalInput from "./components/GoalInput";
 import GoalItem from "./components/GoalItem";
+//! NB to show the navigation bar of the phone itself (which otherwise is covered by our app)
+import { StatusBar } from "expo-status-bar"; //! NB with this you can fine tune the status bar
 
 export default function App() {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -35,36 +36,39 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <Button
-        title="Add New Goal"
-        color="#5e0acc"
-        onPress={showAddGoalModalHandler}
-      />
-      <GoalInput
-        onAddGoal={addGoalItemHandler}
-        modalIsVisible={modalIsVisible}
-        onCloseGoal={closeAddGoalModalHandler}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData.item.text}
-                id={itemData.item.id}
-                onDeleteItem={deleteGoalHandler}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-          alwaysBounceVertical={false}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add New Goal"
+          color="#5e0acc"
+          onPress={showAddGoalModalHandler}
         />
+        <GoalInput
+          onAddGoal={addGoalItemHandler}
+          modalIsVisible={modalIsVisible}
+          onCloseGoal={closeAddGoalModalHandler}
+        />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData.item.text}
+                  id={itemData.item.id}
+                  onDeleteItem={deleteGoalHandler}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -73,6 +77,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingHorizontal: 16,
+    // backgroundColor: "#1e085a",
+    //! NB this can be set also in app.json (line 9) in the expo configuration so that
+    //! you have the same background on all of the pages of your app
   },
   goalsContainer: {
     flex: 5,
