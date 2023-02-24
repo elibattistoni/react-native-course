@@ -8,6 +8,11 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 //_ Touchable components will be deprecated and replaced with Pressable
 //_ add the styling with android_ripple for Android
 
+//! IMPORTANT with ' Pressable ' you can create your own Button component!
+//! The built-in React Native Button component just uses the Pressable component underneath (or the old Touchable components)
+//! NB the react native Button component comes already pre-styled (this is why it does not have a style prop)
+//! therefore if you want to really have a customizabel button, then you should use the Pressable component and some Text and View inside of it
+
 export default function GoalItem({ text, onDeleteItem, id }) {
   return (
     <View style={styles.goalItem}>
