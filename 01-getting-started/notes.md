@@ -35,6 +35,3 @@ You can apply styles in 2 ways:
 
 # the App component
 NB the App component is the root component that is rendered in your app --> Expo will automatically take the App component defined in the App.js file and render it as the root component --> therefore any other user interface elements and components must go into this app component or into children or descendants of this app component
-
-//! NB Text and View are two of the most IMPORTANT built-in components that react native exposes to us
-//! here https://reactnative.dev/docs/components-and-apis is a list of all the components available in react native
